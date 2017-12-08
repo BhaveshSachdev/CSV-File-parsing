@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import com.google.gson.*;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Solution
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(
-                "D:\\GitHub\\CSV-File-parsing\\interview_data_final.csv"));
+                "interview_data_final.csv"));
 
             // read file line by line
             String line = null;
@@ -75,44 +76,61 @@ public class Solution
             Collections.sort(listAbove30, CSVData.StateComparator);
             Collections.sort(listBelow30, CSVData.StateComparator);
             
+            //Creating JSon Objects using Gson API for each list
+            String jsonAbove30Obj = new Gson().toJson(listAbove30);
+            String jsonBelow30Obj = new Gson().toJson(listBelow30);
+            
             //Displaying data after grouping by state
             System.out.println("30+ Years Old");
             System.out.println("---------------------------------------");
 
-            String previousState = previousState = listAbove30.get(0).getState();;
-            System.out.println("\nState: " + previousState);
-
-            for(CSVData myData : listAbove30)
-            {
-
-                String currentState =  myData.getState();
-                if(!currentState.equals(previousState))
-                {
-                    System.out.println("\nState: " + currentState);
-                    previousState = currentState;
-                }
-                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
-            }
+            //Code to display list1 containing data for inidviduals aged above or equal to 30, grouped by state, using System.out. 
+            //Please uncomment the below lines of code to see output using System.out
+//            String previousState = previousState = listAbove30.get(0).getState();;
+//            System.out.println("\nState: " + previousState);
+//
+//            for(CSVData myData : listAbove30)
+//            {
+//
+//                String currentState =  myData.getState();
+//                if(!currentState.equals(previousState))
+//                {
+//                    System.out.println("\nState: " + currentState);
+//                    previousState = currentState;
+//                }
+//                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
+//            }
+            
+            //Cleaning json data  for printing in a formatted manner using Gson's pretyy print functionality
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonParser jp = new JsonParser();
+            JsonElement je = jp.parse(jsonAbove30Obj);
+            String finalAbove30String = gson.toJson(je);
+            System.out.println(finalAbove30String);
             
             System.out.println("\n \n< 30 Years Old");
             System.out.println("---------------------------------------");
-
-            previousState = listBelow30.get(0).getState();
-            System.out.println("\nState: " + previousState);
-
-            for(CSVData myData : listBelow30)
-            {
-
-                String currentState = myData.getState();
-                if(!currentState.equals(previousState))
-                {
-                    System.out.println("\nState: " + currentState);
-                    previousState = currentState;
-                }
-                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
-            }
             
-            
+            je = jp.parse(jsonBelow30Obj);
+            String finalBelowString = gson.toJson(je);
+            System.out.println(finalBelowString);
+
+            //Code to display list2 containing data for inidviduals aged below 30, grouped by state, using System.out. 
+            //Please uncomment the below lines of code to see output using System.out
+//            previousState = listBelow30.get(0).getState();
+//            System.out.println("\nState: " + previousState);
+//
+//            for(CSVData myData : listBelow30)
+//            {
+//
+//                String currentState = myData.getState();
+//                if(!currentState.equals(previousState))
+//                {
+//                    System.out.println("\nState: " + currentState);
+//                    previousState = currentState;
+//                }
+//                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
+//            }
         }
         
         catch(Exception e)
