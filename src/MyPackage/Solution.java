@@ -74,6 +74,45 @@ public class Solution
             //Sorting the lists to group by state
             Collections.sort(listAbove30, CSVData.StateComparator);
             Collections.sort(listBelow30, CSVData.StateComparator);
+            
+            //Displaying data after grouping by state
+            System.out.println("30+ Years Old");
+            System.out.println("---------------------------------------");
+
+            String previousState = previousState = listAbove30.get(0).getState();;
+            System.out.println("\nState: " + previousState);
+
+            for(CSVData myData : listAbove30)
+            {
+
+                String currentState =  myData.getState();
+                if(!currentState.equals(previousState))
+                {
+                    System.out.println("\nState: " + currentState);
+                    previousState = currentState;
+                }
+                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
+            }
+            
+            System.out.println("\n \n< 30 Years Old");
+            System.out.println("---------------------------------------");
+
+            previousState = listBelow30.get(0).getState();
+            System.out.println("\nState: " + previousState);
+
+            for(CSVData myData : listBelow30)
+            {
+
+                String currentState = myData.getState();
+                if(!currentState.equals(previousState))
+                {
+                    System.out.println("\nState: " + currentState);
+                    previousState = currentState;
+                }
+                System.out.println("Document: " + myData.getFirstName() + " " + myData.getLastName() + ", " + myData.getState() + ", " + myData.getAge());
+            }
+            
+            
         }
         
         catch(Exception e)
