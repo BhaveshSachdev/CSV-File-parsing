@@ -8,6 +8,9 @@ package MyPackage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -28,6 +31,10 @@ public class Solution
             Scanner scanner = null;
             int index = 0;
             int key = 0;
+            
+            //creating Array list structure to hold csv data based on age
+            List<CSVData> listBelow30 = new ArrayList<>();
+            List<CSVData> listAbove30 = new ArrayList<>();
             
             //skipping the headers of csv file
             reader.readLine();
@@ -57,7 +64,16 @@ public class Solution
                     }
                     index++;
                 }
+                if(key >= 30)
+                   listAbove30.add(csvData);
+                else
+                   listBelow30.add(csvData);
+                index = 0;
             }
+            
+            //Sorting the lists to group by state
+            Collections.sort(listAbove30, CSVData.StateComparator);
+            Collections.sort(listBelow30, CSVData.StateComparator);
         }
         
         catch(Exception e)

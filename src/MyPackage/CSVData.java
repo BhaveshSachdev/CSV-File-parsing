@@ -5,6 +5,8 @@
  */
 package MyPackage;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Bhavesh
@@ -45,4 +47,16 @@ public class CSVData
     public void setAge(int age) {
         this.age = age;
     }
+    
+    //using comparatpr to compare between State values
+    public static Comparator<CSVData> StateComparator = new Comparator<CSVData>()
+    {
+        public int compare(CSVData data1, CSVData data2)
+        {
+            String state1 = data1.getState().toUpperCase();
+            String state2 = data2.getState().toUpperCase();
+            
+            return state1.compareTo(state2);
+        }
+    };
 }
